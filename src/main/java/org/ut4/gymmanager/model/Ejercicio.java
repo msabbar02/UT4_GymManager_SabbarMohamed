@@ -1,11 +1,19 @@
 package org.ut4.gymmanager.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "ejercicio")
 public class Ejercicio {
    // Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String descripcion;
     private String dificultad;
+    @ManyToOne
+    @JoinColumn(name = "grupo_muscular_id")
     private GrupoMuscular grupoMuscular;
 
     public Ejercicio() {

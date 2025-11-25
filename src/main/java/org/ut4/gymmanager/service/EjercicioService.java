@@ -1,17 +1,18 @@
 package org.ut4.gymmanager.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ut4.gymmanager.model.Ejercicio;
-import org.ut4.gymmanager.repository.EjercicioRepositoryFake;
+import org.ut4.gymmanager.repository.EjercicioRepository;
 
 import java.util.List;
 
 @Service
 public class EjercicioService {
+    @Autowired
+    private final EjercicioRepository repository;
 
-    private final EjercicioRepositoryFake repository;
-
-    public EjercicioService(EjercicioRepositoryFake repo) {
+    public EjercicioService(EjercicioRepository repo) {
         this.repository = repo;
     }
 
@@ -24,6 +25,15 @@ public class EjercicioService {
     }
 
     public List<Ejercicio> findByGrupoMuscular(String grupoMuscular) {
-        return repository.findByGrupoMuscular(grupoMuscular);
+        String grupo = grupoMuscular.toLowerCase();
+        return repository.findByGrupoMuscular_NombreIgnoreCase(grupo);
+    }
+
+    public Ejercicio guardar(Ejercicio ejercicio) {
+        return repository.save(ejercicio);
+    }
+
+    public void eliminar(Long id) {
+        repository.deleteById(id);
     }
 }

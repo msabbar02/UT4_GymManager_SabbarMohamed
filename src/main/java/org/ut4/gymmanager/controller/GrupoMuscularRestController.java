@@ -1,8 +1,6 @@
 package org.ut4.gymmanager.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.ut4.gymmanager.model.GrupoMuscular;
 import org.ut4.gymmanager.service.GrupoMuscularService;
 
@@ -29,5 +27,15 @@ public class GrupoMuscularRestController {
     @GetMapping("/api/grupos/{id}")
     public GrupoMuscular buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
+    }
+
+    @PostMapping("/api/grupos")
+    public GrupoMuscular guardar(@RequestBody GrupoMuscular grupoMuscular) {
+        return service.guardar(grupoMuscular);
+    }
+
+    @DeleteMapping("/api/grupos/{id}")
+    public void eliminar(@PathVariable Long id) {
+        service.eliminar(id);
     }
 }

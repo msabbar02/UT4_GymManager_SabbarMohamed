@@ -1,7 +1,14 @@
 package org.ut4.gymmanager.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class GrupoMuscular {
-    // Attributes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String descripcion;
@@ -14,6 +21,15 @@ public class GrupoMuscular {
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
+
+    public Long getid() {
+        return id;
+    }
+
+    public void setid(Long id) {
+        this.id = id;
+    }
+
     // Getters and Setters
     public Long getId() {
         return id;
