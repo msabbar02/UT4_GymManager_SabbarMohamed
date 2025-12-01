@@ -1,6 +1,8 @@
 package org.ut4.gymmanager.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "ejercicio")
@@ -9,8 +11,11 @@ public class Ejercicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "El nombre no puede ser vacío.")
     private String nombre;
+    @Size(max = 250,message = "No puede superar los 250 caracteres.")
     private String descripcion;
+    @NotBlank(message = "Las dificultades validas 'PRINCIPIANTE','INTERMEDIO','AVANZADO'")
     private String dificultad;
     @ManyToOne
     @JoinColumn(name = "grupo_muscular_id")

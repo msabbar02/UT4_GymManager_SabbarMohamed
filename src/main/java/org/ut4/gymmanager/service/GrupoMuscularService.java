@@ -30,5 +30,15 @@ public class GrupoMuscularService {
     public void eliminar(Long id){
         repository.deleteById(id);
     }
+// he añadido metodo modificar en caso queremos modificar algún grupoMuscular
+    public GrupoMuscular editar(Long id, GrupoMuscular grupoMuscular){
+        GrupoMuscular auxGrupoMuscular = repository.findById(id).orElse(null);
+        if (auxGrupoMuscular != null){
+            auxGrupoMuscular.setNombre(grupoMuscular.getNombre());
+            auxGrupoMuscular.setDescripcion(grupoMuscular.getDescripcion());
+            return repository.save(auxGrupoMuscular);
+        }
+        return null;
+    }
 
 }
