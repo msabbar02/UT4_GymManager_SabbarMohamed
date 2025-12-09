@@ -7,11 +7,13 @@
 
 <h1>Detalle de la Rutina</h1>
 
-<div class="header-data">
-    <p><strong>Nombre:</strong> <span th:text="${rutina.nombre}">Nombre</span></p>
-    <p><strong>Descripción:</strong> <span th:text="${rutina.descripcion}">Desc</span></p>
+<div>
+    <p><strong>Nombre:</strong> <span th:text="${rutina.nombre}">Nombre Rutina</span></p>
+    <p><strong>Descripción:</strong> <span th:text="${rutina.descripcion}">Descripción</span></p>
     <p><strong>Nivel:</strong> <span th:text="${rutina.nivel}">Nivel</span></p>
 </div>
+
+<hr/>
 
 <h3>Ejercicios de la rutina</h3>
 
@@ -19,27 +21,44 @@
     + Añadir Ejercicio a esta rutina
 </a>
 
-<table>
+<br/><br/>
+
+<table border="1">
     <thead>
     <tr>
+        <th>Orden</th>
         <th>Ejercicio</th>
         <th>Grupo Muscular</th>
         <th>Series</th>
         <th>Repeticiones</th>
+        <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="ejercicio : ${rutina.rutinaEjercicios}">
-        <td th:text="${ejercicio.ejercicio.nombre}">Ejercicio</td>
-        <td th:text="${ejercicio.ejercicio.descripcion}">Desc</td>
-        <td th:text="${ejercicio.ejercicio.dificultad}">Dificultad</td>
-        <td th:text="${ejercicio.ejercicio.grupoMuscular.nombre}">Grupo Muscular</td>
-        <td th:text="${ejercicio.series}">Series</td>
-        <td th:text="${ejercicio.repeticiones}">Repeticiones</td>
-        <td th:text="${ejercicio.orden}">orden</td>
+    <tr th:each="re : ${rutina.rutinaEjercicios}">
+        <td th:text="${re.orden}">1</td>
+
+        <td th:text="${re.ejercicio != null ? re.ejercicio.nombre : 'Borrado'}">Press Banca</td>
+
+        <td th:text="${re.ejercicio != null ? re.ejercicio.grupoMuscular.nombre : '-'}">Pecho</td>
+
+        <td th:text="${re.series}">3</td>
+
+        <td th:text="${re.repeticiones}">10</td>
+
+        <td>
+            <a th:href="@{/web/rutinas/{rutinaId}/ejercicios/borrar/{reId}(rutinaId=${rutina.id}, reId=${re.id})}"
+               onclick="return confirm('¿Quitar este ejercicio?');">
+                Eliminar
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>
+
+<div th:if="${#lists.isEmpty(rutina.rutinaEjercicios)}">
+    <p>No hay ejercicios en esta rutina.</p>
+</div>
 
 <br/>
 <a th:href="@{/web/rutinas}">Volver al listado</a>
