@@ -10,12 +10,13 @@ import org.ut4.gymmanager.service.EjercicioService;
 import java.util.List;
 
 @RestController
+
 public class EjercicioRestController {
 
-    private final EjercicioService service;
+    private final EjercicioService ejercicioService;
 
-    public EjercicioRestController(EjercicioService service) {
-        this.service = service;
+    public EjercicioRestController(EjercicioService ejercicioService) {
+        this.ejercicioService = ejercicioService;
     }
 
     // --- MÉTODO UNIFICADO (Sustituye a listarTodos, findByGrupo, findByDificultad...) ---
@@ -26,7 +27,7 @@ public class EjercicioRestController {
     // 4. /api/ejercicios?grupo=Pecho&dificultad=Alta (Ambos)
     @GetMapping("/api/ejercicios")
     public ResponseEntity<List<Ejercicio>> buscarEjercicios(@RequestParam(required = false) String grupo, @RequestParam(required = false) String dificultad){
-        List<Ejercicio> resultados = service.buscarConFiltros(grupo, dificultad);
+        List<Ejercicio> resultados = ejercicioService.buscarConFiltros(grupo, dificultad);
         if(resultados.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -35,7 +36,7 @@ public class EjercicioRestController {
 
     @GetMapping("/api/ejercicios/{id}")
     public ResponseEntity<Ejercicio> buscarPorId(@PathVariable Long id) {
-        Ejercicio auxEjercicio = service.buscarPorId(id);
+        Ejercicio auxEjercicio = ejercicioService.buscarPorId(id);
         if (auxEjercicio == null) {
             return ResponseEntity.notFound().build();
         }
@@ -44,7 +45,7 @@ public class EjercicioRestController {
 
     @PostMapping("/api/ejercicios")
     public ResponseEntity<Ejercicio> guardar(@Valid @RequestBody Ejercicio ejercicio) {
-        Ejercicio auxEjercicio = service.guardar(ejercicio);
+        Ejercicio auxEjercicio = ejercicioService.guardar(ejercicio);
         // Si el servicio devuelve null (por la validación de dificultad), devolvemos 400 Bad Request
         if (auxEjercicio == null) {
             return ResponseEntity.badRequest().build();
@@ -54,7 +55,7 @@ public class EjercicioRestController {
 
     @PutMapping("/api/ejercicios/{id}")
     public ResponseEntity<Ejercicio> modificar(@Valid @RequestBody Ejercicio ejercicio, @PathVariable Long id) {
-        Ejercicio actualizado = service.editar(id, ejercicio);
+        Ejercicio actualizado = ejercicioService.editar(id, ejercicio);
         if (actualizado == null) {
             return ResponseEntity.notFound().build();
         }
@@ -63,10 +64,10 @@ public class EjercicioRestController {
 
     @DeleteMapping("/api/ejercicios/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (service.buscarPorId(id) == null) {
+        if (ejercicioService.buscarPorId(id) == null) {
             return ResponseEntity.notFound().build();
         }
-        service.eliminar(id);
+        ejercicioService.eliminar(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -17,6 +17,7 @@ public class Ejercicio {
     private String descripcion;
     @NotBlank(message = "Las dificultades validas 'PRINCIPIANTE','INTERMEDIO','AVANZADO'")
     private String dificultad;
+
     @ManyToOne
     @JoinColumn(name = "grupo_muscular_id")
     private GrupoMuscular grupoMuscular;

@@ -9,27 +9,25 @@ import org.ut4.gymmanager.service.GrupoMuscularService;
 
 import java.util.List;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
 
 @RestController
 public class GrupoMuscularRestController {
 
-    private GrupoMuscularService service;
+    private final GrupoMuscularService grupoMuscularService;
 
-    public GrupoMuscularRestController(GrupoMuscularService service) {
-        this.service = service;
+    public GrupoMuscularRestController(GrupoMuscularService grupoMuscularService) {
+        this.grupoMuscularService = grupoMuscularService;
     }
 
     // creat endPoints
     @GetMapping("/api/grupos")
     public ResponseEntity<List<GrupoMuscular>> listarTodos() {
-        return ResponseEntity.ok(service.listarTodos());
+        return ResponseEntity.ok(grupoMuscularService.listarTodos());
     }
 
     @GetMapping("/api/grupos/{id}")
     public ResponseEntity<GrupoMuscular> buscarPorId( @PathVariable Long id) {
-        GrupoMuscular obj = service.buscarPorId(id);
+        GrupoMuscular obj = grupoMuscularService.buscarPorId(id);
         if (obj != null) {
             return ResponseEntity.ok(obj);
         }
@@ -38,22 +36,22 @@ public class GrupoMuscularRestController {
 
     @PostMapping("/api/grupos")
     public ResponseEntity<GrupoMuscular> guardar(@Valid @RequestBody GrupoMuscular grupoMuscular) {
-        GrupoMuscular grupo = service.guardar(grupoMuscular);
+        GrupoMuscular grupo = grupoMuscularService.guardar(grupoMuscular);
         return new  ResponseEntity<>(grupo, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/api/grupos/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        if (service.buscarPorId(id) == null) {
+        if (grupoMuscularService.buscarPorId(id) == null) {
             return ResponseEntity.notFound().build();
         }
-        service.eliminar(id);
+        grupoMuscularService.borrar(id);
         return ResponseEntity.noContent().build();
     }
     // para modificar
     @PutMapping("/api/grupos/{id}")
     public ResponseEntity<GrupoMuscular> modificar(@PathVariable Long id , @Valid @RequestBody GrupoMuscular grupoMuscular) {
-        GrupoMuscular actualizado = service.editar(id, grupoMuscular);
+        GrupoMuscular actualizado = grupoMuscularService.editar(id, grupoMuscular);
         if (actualizado != null) {
             return ResponseEntity.ok(actualizado);
         }

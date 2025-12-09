@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Detalle de Rutina</title>
+</head>
+<body>
+
+<h1>Detalle de la Rutina</h1>
+
+<div class="header-data">
+    <p><strong>Nombre:</strong> <span th:text="${rutina.nombre}">Nombre</span></p>
+    <p><strong>Descripción:</strong> <span th:text="${rutina.descripcion}">Desc</span></p>
+    <p><strong>Nivel:</strong> <span th:text="${rutina.nivel}">Nivel</span></p>
+</div>
+
+<h3>Ejercicios de la rutina</h3>
+
+<a th:href="@{/web/rutinas/{id}/ejercicios/nuevo(id=${rutina.id})}">
+    + Añadir Ejercicio a esta rutina
+</a>
+
+<table>
+    <thead>
+    <tr>
+        <th>Ejercicio</th>
+        <th>Grupo Muscular</th>
+        <th>Series</th>
+        <th>Repeticiones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="ejercicio : ${rutina.rutinaEjercicios}">
+        <td th:text="${ejercicio.ejercicio.nombre}">Ejercicio</td>
+        <td th:text="${ejercicio.ejercicio.descripcion}">Desc</td>
+        <td th:text="${ejercicio.ejercicio.dificultad}">Dificultad</td>
+        <td th:text="${ejercicio.ejercicio.grupoMuscular.nombre}">Grupo Muscular</td>
+        <td th:text="${ejercicio.series}">Series</td>
+        <td th:text="${ejercicio.repeticiones}">Repeticiones</td>
+        <td th:text="${ejercicio.orden}">orden</td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<a th:href="@{/web/rutinas}">Volver al listado</a>
+
+</body>
+</html>

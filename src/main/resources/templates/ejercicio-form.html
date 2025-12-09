@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulario de Ejercicio</title>
+</head>
+<body>
+
+<h1 th:text="${ejercicio.id == null} ? 'Nuevo Ejercicio' : 'Editar Ejercicio'">Formulario</h1>
+
+<p>
+    <a th:href="@{/web/ejercicios}">Volver al listado</a>
+</p>
+
+<form th:action="@{/web/ejercicios/guardar}" th:object="${ejercicio}" method="post">
+    <input type="hidden" th:field="*{id}">
+
+    <p>
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}">
+    </p>
+    <p>
+        <label>Descripción</label>
+        <input type="text" th:field="*{descripcion}">
+    </p>
+    <p>
+        <label>Dificultad</label>
+        <label>
+            <select th:field="*{dificultad}">
+                <option value="">--Seleccionar</option>
+                <option th:each="dif : ${dificultades}"
+                        th:value="${dif}"
+                        th:text="${dif}">
+                </option>
+            </select>
+        </label>
+    </p>
+    <p>
+        <label>Grupo Muscular</label>
+        <label>
+            <select th:field="*{grupoMuscular.id}">
+                <option value="">--Seleccionar</option>
+                <option th:each="grupo : ${grupos}"
+                        th:value="${grupo.id}"
+                        th:text="${grupo.nombre}">
+                </option>
+            </select>
+        </label>
+    </p>
+    <p>
+        <button type="submit">Guardar</button>
+    </p>
+
+</form>
+
+</body>
+</html>

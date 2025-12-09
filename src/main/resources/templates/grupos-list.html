@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de grupos musculares</title>
+</head>
+<body>
+
+<h1>Listado de grupos musculares</h1>
+
+<p>
+    <a href="/web">Volver al inicio</a>
+</p>
+
+<p>
+    <a th:href="@{/web/grupos/nuevo}">Nuevo grupo</a>
+</p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="grupo : ${grupos}">
+
+        <td th:text="${grupo.id}">1</td>
+
+        <td th:text="${grupo.nombre}">Ejemplo Nombre</td>
+
+        <td th:text="${grupo.descripcion}">Ejemplo Descripción</td>
+
+        <td>
+            <a th:href="@{/web/grupos/{id}/editar (id=${grupo.id})}">Editar</a>
+            <a th:href="@{/web/grupos/{id}/borrar (id=${grupo.id})}">Borrar</a>
+        </td>
+    </tr>
+
+    <tr th:if="${grupos.isEmpty()}">
+        <td colspan="4">No hay grupos musculares registrados.</td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>

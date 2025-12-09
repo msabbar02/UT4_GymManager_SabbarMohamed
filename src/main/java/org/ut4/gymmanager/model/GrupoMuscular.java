@@ -26,12 +26,14 @@ public class GrupoMuscular {
         this.descripcion = descripcion;
     }
 
-    public Long getid() {
+    public Long getId() {
         return id;
     }
-    public void setid(Long id) {
+
+    public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }

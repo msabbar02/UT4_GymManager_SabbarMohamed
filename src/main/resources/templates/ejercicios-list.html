@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Ejercicios</title>
+</head>
+<body>
+<h1>Listado de Ejercicios</h1>
+<p>
+    <a href="/web">Volver al inicio</a>
+</p>
+
+<p>
+    <a href="/web/ejercicios/nuevo">Nuevo Ejercicio</a>
+</p>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Dificultad</th>
+            <th>Grupo Muscular</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr th:each="ejercicio : ${ejercicios}">
+            <td th:text="${ejercicio.id}">1</td>
+            <td th:text="${ejercicio.nombre}">1</td>
+            <td th:text="${ejercicio.descripcion}">1</td>
+            <td th:text="${ejercicio.dificultad}">1</td>
+            <td th:text="${ejercicio.grupoMuscular.nombre}">1</td>
+            <td>
+                <a th:href="@{/web/ejercicios/{id}/editar (id=${ejercicio.id})}">Editar</a>
+                <a th:href="@{/web/ejercicios/{id}/borrar (id=${ejercicio.id})}">Borrar</a>
+            </td>
+        </tr>
+
+        <tr th:if="${ejercicios.isEmpty()}">
+            <td colspan="5">No hay ejercicios registrados.</td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

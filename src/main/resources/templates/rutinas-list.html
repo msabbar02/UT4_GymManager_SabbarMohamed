@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Rutinas</title>
+</head>
+<body>
+<h1>Listado de Rutinas</h1>
+<p>
+    <a href="/web">Volver al inicio</a>
+</p>
+
+<p>
+    <a href="/web/rutinas/nueva">Nueva Rutina</a>
+</p>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Nivel</th>
+        <th>Rutina Ejercicios</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="rutina : ${rutinas}">
+        <td th:text="${rutina.id}">1</td>
+        <td th:text="${rutina.nombre}">1</td>
+        <td th:text="${rutina.descripcion}">1</td>
+        <td th:text="${rutina.nivel}">1</td>
+        <td th:text="${rutina.getRutinaEjercicios()}">1</td>
+        <td>
+            <a th:href="@{/web/rutinas/{id}/editar (id=${rutina.id})}">Editar</a>
+            <a th:href="@{/web/rutinas/{id}/borrar (id=${rutina.id})}">Borrar</a>
+            <a th:href="@{/web/rutinas/{id} (id=${rutina.id})}">Ver Detalle</a>
+        </td>
+    </tr>
+
+    <tr th:if="${rutinas.isEmpty()}">
+        <td colspan="5">No hay rutinas registrados.</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
