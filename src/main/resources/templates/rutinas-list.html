@@ -21,7 +21,8 @@
         <th>Nombre</th>
         <th>Descripción</th>
         <th>Nivel</th>
-        <th>Rutina Ejercicios</th>
+        <th>Nº Ejercicios</th>
+        <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
@@ -31,7 +32,7 @@
         <td th:text="${rutina.nombre}">1</td>
         <td th:text="${rutina.descripcion}">1</td>
         <td th:text="${rutina.nivel}">1</td>
-        <td th:text="${rutina.getRutinaEjercicios()}">1</td>
+        <td th:text="${rutina.rutinaEjercicios.size()}">3</td>
         <td>
             <a th:href="@{/web/rutinas/{id}/editar (id=${rutina.id})}">Editar</a>
             <a th:href="@{/web/rutinas/{id}/borrar (id=${rutina.id})}">Borrar</a>

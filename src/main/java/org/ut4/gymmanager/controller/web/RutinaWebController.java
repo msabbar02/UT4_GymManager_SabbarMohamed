@@ -94,13 +94,17 @@ public class RutinaWebController {
 
     // GUARDAR EJERCICIO EN RUTINA
     @PostMapping("/{id}/ejercicios/guardar")
-    public String guardarEjercicioEnRutina(@PathVariable Long id, @ModelAttribute RutinaEjercicio rutinaEjercicio) {
-        Rutina rutina = rutinaService.buscarPorId(id).orElse(null);
+    public String guardarEjercicioEnRutina(@PathVariable("id") Long rutinaId, @ModelAttribute RutinaEjercicio rutinaEjercicio) {
+        rutinaEjercicio.setId(null);
+        Rutina rutina = rutinaService.buscarPorId(rutinaId).orElse(null);
+
         if (rutina != null) {
             rutinaEjercicio.setRutina(rutina);
-            rutinaService.guardarEjercicioRutina(rutinaEjercicio);
+            rutina.getRutinaEjercicios().add(rutinaEjercicio);
+            rutinaService.guardar(rutina);
         }
-        return STR."redirect:/web/rutinas/\{id}";
+
+        return STR."redirect:/web/rutinas/\{rutinaId}";
     }
 
     // BORRAR EJERCICIO DE RUTINA

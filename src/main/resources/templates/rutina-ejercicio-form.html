@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <title>Añadir Ejercicio</title>
+</head>
+<body>
+<h1>Añadir Ejercicio a la Rutina</h1>
+
+<form th:action="@{/web/rutinas/{id}/ejercicios/guardar(id=${rutinaId})}"
+      th:object="${rutinaEjercicio}" method="post">
+
+    <label>Seleccionar Ejercicio:</label><br>
+    <select th:field="*{ejercicio}" required>
+        <option value="">-- Selecciona --</option>
+        <option th:each="ej : ${listaEjercicios}"
+                th:value="${ej.id}"
+                th:text="${ej.nombre}"></option>
+    </select><br><br>
+
+    <label>Orden:</label><br>
+    <input type="number" th:field="*{orden}" value="1" min="1" /><br><br>
+
+    <label>Series:</label><br>
+    <input type="number" th:field="*{series}" required min="1"/><br><br>
+
+    <label>Repeticiones:</label><br>
+    <input type="number" th:field="*{repeticiones}" required min="1"/><br><br>
+
+    <button type="submit">Añadir</button>
+    <a th:href="@{/web/rutinas/{id}(id=${rutinaId})}">Cancelar</a>
+</form>
+</body>
+</html>
